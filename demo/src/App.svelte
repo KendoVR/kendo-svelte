@@ -66,7 +66,7 @@
 <main>
 	<h1>Hello {name}!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-	<Pager></Pager>
+	<Pager pageSize=10 total=100 currentPage=1></Pager>
 
 	<Button
 		rounded="{ButtonOptions.Rounded.Small}"
