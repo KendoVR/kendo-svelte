@@ -24,3 +24,4 @@ packages/**/.npmignore
 .DS_Store
 /.svelte-kit
 /package
+/public/build
