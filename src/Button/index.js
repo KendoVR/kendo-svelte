@@ -1,3 +1,3 @@
 import Button from './Button.svelte';
-export * from './options';
-export { Button }
+import * as ButtonOptions from './options';
+export { Button, ButtonOptions };
