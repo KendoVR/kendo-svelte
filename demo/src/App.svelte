@@ -11,7 +11,7 @@
 	
 	<Button
 		rounded="{ButtonOptions.Rounded.Small}"
-		themeColor="{ButtonOptions.ThemeColor.Primary}">
+		themeColor="{ButtonOptions.ThemeColor.Primary}" on:click={(ev) => {alert("Clicked"); console.log(ev.target)}}>
 		<strong>Text</strong>
 	</Button>
 

@@ -10,9 +10,7 @@ const Rounded = {
     Small: "k-rounded-sm",
     Full: "k-rounded-full"
 };
-// shape: typeof [ null, 'rectangle', 'square' ]
-// fillMode: typeof [ null, 'solid', 'flat', 'outline', 'link' ],
-// themeColor: typeof [ null, 'surface', 'base', 'primary' ],
+
 const Shape = {
     Rectangle: "k-button-rectangle",
     Square: "k-button-square"
@@ -26,7 +24,6 @@ const FillMode = {
 };
 
 const ThemeColor = {
-    Surface: "-surface",
     Base: "-base", 
     Primary: "-primary"
 };
