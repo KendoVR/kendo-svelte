@@ -58,5 +58,5 @@
         </div>
     </div>
 
-    <Pager />
+    <Pager pageSize=20 total=100 />
 </div>
