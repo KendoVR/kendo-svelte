@@ -1,7 +1,5 @@
 <script>
-	import {Button, ButtonOptions} from '../../src/index';
-	import {Pager} from '../../src/index';
-	import {Grid} from '../../src/index';
+	import {Grid, Calendar, Pager, Button, ButtonOptions} from '../../src/index';
 	export let name;
 </script>
 
@@ -25,6 +23,7 @@
 	</Button>
 
 	<Grid/>
+	<Calendar/>
 </main>
 
 <style>

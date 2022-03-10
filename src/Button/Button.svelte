@@ -9,7 +9,7 @@
     export let themeColor = BtnOptions.ThemeColor.Base;
 </script>
 
-<button type="button" class="k-button {size} {rounded} {shape} {fillMode} {BtnOptions.getThemeColorClass(fillMode, themeColor)}" on:click>
+<button type="button" class="k-button {size} {rounded} {shape} {fillMode} {BtnOptions.getThemeColorClass(fillMode, themeColor)} {$$props.class}" on:click>
     {#if icon}
     <span class="k-button-icon k-icon k-i-{icon}"></span>
     {/if}
