@@ -1,6 +1,7 @@
 <script>
 	import {Button, ButtonOptions} from '../../src/index';
 	import {Pager} from '../../src/index';
+	import {Grid} from '../../src/index';
 	export let name;
 </script>
 
@@ -8,7 +9,7 @@
 	<h1>Hello {name}!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 	<Pager></Pager>
-	
+
 	<Button
 		rounded="{ButtonOptions.Rounded.Small}"
 		themeColor="{ButtonOptions.ThemeColor.Primary}" on:click={(ev) => {alert("Clicked"); console.log(ev.target)}}>
@@ -16,12 +17,14 @@
 	</Button>
 
 	<Button
-		size="{ButtonOptions.Size.Large}" 
+		size="{ButtonOptions.Size.Large}"
 		rounded="{ButtonOptions.Rounded.Full}"
 		shape="{ButtonOptions.Shape.Square}"
 		fillMode="{ButtonOptions.FillMode.Flat}"
 		icon="gear">
 	</Button>
+
+	<Grid/>
 </main>
 
 <style>
