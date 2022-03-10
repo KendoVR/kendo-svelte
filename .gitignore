@@ -1,0 +1,26 @@
+
+# dependencies
+**/node_modules
+node_modules
+
+# misc
+npm-debug.log*
+packages/**/reports
+lerna-debug.log
+artifacts
+
+#dist
+packages/**/dist
+
+packages/**/src/**/*.map
+packages/**/src/**/*.js
+packages/**/src/**/*.d.ts
+
+packages/**/LICENSE.md
+packages/**/NOTICE.txt
+packages/**/.npmignore
+
+#svelte
+.DS_Store
+/.svelte-kit
+/package
