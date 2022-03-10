@@ -3,6 +3,8 @@
     import GridRow from "./GridRow.svelte";
     import GridHeaderRow from "./GridHeaderRow.svelte";
 
+    import { orderBy } from '@progress/kendo-data-query';
+
     export let data;
     export let columns;
     export let sortable;
@@ -18,31 +20,14 @@
     function sort(e) {
         let field = e.detail;
 
-        data = data.sort((a, b) => {
-            console.log(a[field])
-            if (sortDir === "asc") {
-                sortDir = "desc";
+        sortDir = sortDir === "asc" ? "desc" : "asc";
 
-                if (a[field] > b[field]) {
-                    return -1;
-                } else if (a[field] < b[field]) {
-                    return 1;
-                }
-            } else if (sortDir === "desc") {
-                sortDir = "asc";
-
-                if (a[field] < b[field]) {
-                    return -1;
-                } else if (a[field] > b[field]) {
-                    return 1;
-                }
-            }
-
-            return 0;
-        });
+        data = orderBy(data, [
+            { field: field, dir: sortDir }
+        ]);
     }
 
-    let sortDir = "asc";
+    $: sortDir = "asc";
 </script>
 
 <div class="k-grid">
