@@ -1,93 +1,77 @@
 <script>
     import Pager from "../Pager/Pager.svelte";
+    import GridRow from "./GridRow.svelte";
+    import GridHeaderRow from "./GridHeaderRow.svelte";
+
+    export let data;
+    export let columns;
+    export let sortable;
+
+    let keys = columns.map((c) => {
+        if (typeof c === 'string' || c instanceof String) {
+            return c;
+        } else {
+            return c.field;
+        }
+    });
+
+    function sort(e) {
+        let field = e.detail;
+
+        data = data.sort((a, b) => {
+            console.log(a[field])
+            if (sortDir === "asc") {
+                sortDir = "desc";
+
+                if (a[field] > b[field]) {
+                    return -1;
+                } else if (a[field] < b[field]) {
+                    return 1;
+                }
+            } else if (sortDir === "desc") {
+                sortDir = "asc";
+
+                if (a[field] < b[field]) {
+                    return -1;
+                } else if (a[field] > b[field]) {
+                    return 1;
+                }
+            }
+
+            return 0;
+        });
+    }
+
+    let sortDir = "asc";
 </script>
 
 <div class="k-grid">
-
     <div class="k-grid-header">
-      <div class="k-grid-header-wrap">
-        <table role="grid">
-          <thead>
-            <tr data-render-row-index="0">
-              <th aria-colindex="1" class="k-header k-touch-action-none" role="columnheader" rowspan="1" colspan="1">
-                ID
-                <span class="k-column-resizer k-touch-action-none"></span>
-              </th>
-              <th aria-colindex="2" class="k-header k-touch-action-none" role="columnheader" rowspan="1" colspan="1">
-                Product Name
-                <span class="k-column-resizer k-touch-action-none"></span>
-              </th>
-              <th aria-colindex="3" class="k-header k-touch-action-none" role="columnheader" rowspan="1" colspan="1">
-                Price
-                <span class="k-column-resizer k-touch-action-none"></span>
-              </th>
-              <th aria-colindex="4" class="k-header k-touch-action-none" role="columnheader" rowspan="1" colspan="1">
-                In Stock
-                <span class="k-column-resizer k-touch-action-none"></span>
-              </th>
-              <th aria-colindex="5" class="k-header k-touch-action-none" role="columnheader" rowspan="1" colspan="1">
-                Units
-                <span class="k-column-resizer k-touch-action-none"></span>
-              </th>
-              <th aria-colindex="6" class="k-header k-touch-action-none" role="columnheader" rowspan="1" colspan="1">
-                Quantity per unit
-                <span class="k-column-resizer k-touch-action-none"></span>
-              </th>
-            </tr>
-          </thead>
-        </table>
-      </div>
+        <div class="k-grid-header-wrap">
+            <table role="grid">
+                <thead>
+                    <GridHeaderRow keys="{keys}" on:click="{ sort }" sortDir={sortDir} sortable={sortable} />
+                </thead>
+            </table>
+        </div>
     </div>
 
     <div class="k-grid-container">
-      <div class="k-grid-content">
-        <table role="grid" class="k-grid-table" aria-rowcount="77" aria-colcount="7">
-            <tbody>
-            <tr class="k-master-row" aria-rowindex="2">
-                <td role="gridcell" colspan="1" aria-colindex="1" aria-selected="false">
-                    1
-                </td>
-                <td role="gridcell" colspan="1" aria-colindex="2" aria-selected="false">
-                    Chai
-                </td>
-                <td role="gridcell" colspan="1" aria-colindex="3" aria-selected="false">
-                    $18.00
-                </td>
-                <td role="gridcell" colspan="1" aria-colindex="4" aria-selected="false">
-                    False
-                </td>
-                <td role="gridcell" colspan="1" aria-colindex="5" aria-selected="false">
-                    39
-                </td>
-                <td role="gridcell" colspan="1" aria-colindex="6" aria-selected="false">
-                    10 boxes x 20 bags
-                </td>
-            </tr>
-            <tr class="k-master-row k-alt" aria-rowindex="3">
-                <td role="gridcell" colspan="1" aria-colindex="1" aria-selected="false">
-                    2
-                </td>
-                <td role="gridcell" colspan="1" aria-colindex="2" aria-selected="false">
-                    Chang
-                </td>
-                <td role="gridcell" colspan="1" aria-colindex="3" aria-selected="false">
-                    $19.00
-                </td>
-                <td role="gridcell" colspan="1" aria-colindex="4" aria-selected="false">
-                    False
-                </td>
-                <td role="gridcell" colspan="1" aria-colindex="5" aria-selected="false">
-                    17
-                </td>
-                <td role="gridcell" colspan="1" aria-colindex="6" aria-selected="false">
-                    24 - 12 oz bottles
-                </td>
-            </tr>
-            </tbody>
-        </table>
-      </div>
+        <div class="k-grid-content">
+            <table
+                role="grid"
+                class="k-grid-table"
+                aria-rowcount="{data.lenght}"
+                aria-colcount="{keys.lenght}"
+            >
+                <tbody>
+                    {#each data as item, i}
+                        <GridRow item="{item}" rowindex="{i}" keys="{keys}" />
+                    {/each}
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <Pager/>
-
-  </div>
+    <Pager />
+</div>

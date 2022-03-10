@@ -1,6 +1,66 @@
 <script>
 	import {Grid, Calendar, Pager, Button, ButtonOptions} from '../../src/index';
 	export let name;
+
+	let gridColumns = ["ProductID", "ProductName", "SupplierCountry"];
+	let gridItems = [
+        { ProductID: 3, ProductName: "Aniseed Syrup", SupplierCountry: "UK" },
+        {
+            ProductID: 4,
+            ProductName: "Chef Anton\u0027s Cajun Seasoning",
+            SupplierCountry: "USA",
+        },
+        {
+            ProductID: 5,
+            ProductName: "Chef Anton\u0027s Gumbo Mix",
+            SupplierCountry: "USA",
+        },
+        {
+            ProductID: 6,
+            ProductName: "Grandma\u0027s Boysenberry Spread",
+            SupplierCountry: "USA",
+        },
+        {
+            ProductID: 8,
+            ProductName: "Northwoods Cranberry Sauce",
+            SupplierCountry: "USA",
+        },
+        {
+            ProductID: 15,
+            ProductName: "Genen Shouyu",
+            SupplierCountry: "Japan",
+        },
+        {
+            ProductID: 44,
+            ProductName: "Gula Malacca",
+            SupplierCountry: "Singapore",
+        },
+        {
+            ProductID: 61,
+            ProductName: "Sirop d\u0027érable",
+            SupplierCountry: "Canada",
+        },
+        {
+            ProductID: 63,
+            ProductName: "Vegie-spread",
+            SupplierCountry: "Australia",
+        },
+        {
+            ProductID: 65,
+            ProductName: "Louisiana Fiery Hot Pepper Sauce",
+            SupplierCountry: "USA",
+        },
+        {
+            ProductID: 66,
+            ProductName: "Louisiana Hot Spiced Okra",
+            SupplierCountry: "USA",
+        },
+        {
+            ProductID: 77,
+            ProductName: "Original Frankfurter grüne Soße",
+            SupplierCountry: "Germany",
+        },
+    ];
 </script>
 
 <main>
@@ -22,7 +82,7 @@
 		icon="gear">
 	</Button>
 
-	<Grid/>
+	<Grid columns="{gridColumns}" data="{gridItems}" sortable={true}/>
 	<Calendar/>
 </main>
 
