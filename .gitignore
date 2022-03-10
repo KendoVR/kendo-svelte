@@ -10,15 +10,8 @@ lerna-debug.log
 artifacts
 
 #dist
-packages/**/dist
-
-packages/**/src/**/*.map
-packages/**/src/**/*.js
-packages/**/src/**/*.d.ts
-
-packages/**/LICENSE.md
-packages/**/NOTICE.txt
-packages/**/.npmignore
+dist
+**/dist
 
 #svelte
 .DS_Store
@@ -26,5 +19,6 @@ packages/**/.npmignore
 /package
 /public/build
 
-# dist
-./dist
+#demo
+/demo/node_modules/
+demo/public/build/
