@@ -1,4 +1,5 @@
 import App from './App.svelte';
+import '@progress/kendo-theme-default';
 
 
 const app = new App({

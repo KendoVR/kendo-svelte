@@ -1,0 +1,11 @@
+{
+  "name": "kendo-hackatoners-svelte-demo-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "sirv public --no-clear"
+  },
+  "dependencies": {
+    "@progress/kendo-theme-default": "^5.2.0"
+  }
+}

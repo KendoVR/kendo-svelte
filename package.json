@@ -5,6 +5,7 @@
   "scripts": {
     "clean": "rm -rf dist && rm -rf demo/public/build",
     "build": "rollup -c",
+    "bootstrap-demo": "cd demo && npm install",
     "build-demo": "cd demo && rollup -c",
     "dev": "cd demo && rollup -c -w",
     "start": "sirv demo/public --no-clear"
