@@ -29,12 +29,12 @@ function serve() {
 }
 
 export default {
-	input: 'src/main.js',
+	input: 'src/index.js',
 	output: {
 		sourcemap: true,
 		format: 'iife',
-		name: 'app',
-		file: 'public/build/bundle.js'
+		name: 'lib',
+		file: 'dist/keknd-svelte.js'
 	},
 	plugins: [
 		svelte({

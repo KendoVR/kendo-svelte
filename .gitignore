@@ -25,3 +25,6 @@ packages/**/.npmignore
 /.svelte-kit
 /package
 /public/build
+
+# dist
+./dist
