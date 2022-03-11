@@ -5,9 +5,16 @@
 
     import { orderBy } from '@progress/kendo-data-query';
 
-    export let data;
-    export let columns;
-    export let sortable;
+    export let data = [];
+    export let columns = [];
+    export let sortable = false;
+    export let pageSize = 20;
+
+    let skip = 0;
+    let take = Number(pageSize);
+    let currentPage = 1;
+    let items = data.slice(skip, take + skip);
+    let sortExpression = [];
 
     let keys = columns.map((c) => {
         if (typeof c === 'string' || c instanceof String) {
@@ -17,17 +24,70 @@
         }
     });
 
-    function sort(e) {
-        let field = e.detail;
+    let columnsSort = {};
 
-        sortDir = sortDir === "asc" ? "desc" : "asc";
+    keys.map((key) => {
+        columnsSort[key] = null;
+    });
 
-        data = orderBy(data, [
-            { field: field, dir: sortDir }
-        ]);
+    function dataOperation() {
+        let sortLength = sortExpression.length;
+
+        items = data;
+
+        if (sortLength) {
+            sortExpression.forEach((exp) => {
+                //debugger
+                items = orderBy(items, [exp]);
+            });
+        }
+
+        items = items.slice(skip, take + skip);
     }
 
-    $: sortDir = "asc";
+    function sort(e) {
+        let field = e.detail,
+            hasField = false;
+
+        if (columnsSort[field] === "asc") {
+            columnsSort[field] = "desc";
+        } else if (columnsSort[field] === "desc") {
+            columnsSort[field] = null;
+        } else {
+            columnsSort[field] = "asc";
+        }
+
+        if (!columnsSort[field]) {
+            sortExpression = sortExpression.filter((exp) => exp.field !== field);
+        } else {
+            sortExpression = sortExpression.map((exp) => {
+                if (exp.field === field) {
+                    hasField = true;
+
+                    return {...exp, dir: columnsSort[field]};
+                }
+
+                return exp;
+            });
+
+
+            if (!hasField) {
+                sortExpression.push({
+                    field: field,
+                    dir: columnsSort[field]
+                });
+            }
+        }
+
+        dataOperation();
+    }
+
+    function pageChange(e) {
+        currentPage = e.detail.page;
+        skip = (currentPage - 1) * take;
+
+        dataOperation();
+    }
 </script>
 
 <div class="k-grid">
@@ -35,7 +95,7 @@
         <div class="k-grid-header-wrap">
             <table role="grid">
                 <thead>
-                    <GridHeaderRow keys="{keys}" on:click="{ sort }" sortDir={sortDir} sortable={sortable} />
+                    <GridHeaderRow keys="{keys}" on:click="{sort}" columnsSort={columnsSort} sortable={sortable} />
                 </thead>
             </table>
         </div>
@@ -46,11 +106,11 @@
             <table
                 role="grid"
                 class="k-grid-table"
-                aria-rowcount="{data.lenght}"
-                aria-colcount="{keys.lenght}"
+                aria-rowcount="{data.length}"
+                aria-colcount="{keys.length}"
             >
                 <tbody>
-                    {#each data as item, i}
+                    {#each items as item, i}
                         <GridRow item="{item}" rowindex="{i}" keys="{keys}" />
                     {/each}
                 </tbody>
@@ -58,5 +118,5 @@
         </div>
     </div>
 
-    <Pager pageSize=20 total=100 />
+    <Pager pageSize={pageSize} total={data.length} currentPage={currentPage} on:pageChange={pageChange} />
 </div>

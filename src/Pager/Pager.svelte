@@ -6,10 +6,10 @@
     export let pageSize;
     export let currentPage = 1;
 
-    let pageCount = Math.floor(total / pageSize);
+    let pageCount = Math.round((total / pageSize) + 1);
 
     $: offsetStart = (currentPage - 1) * pageSize + 1;
-    $: offsetEnd = (currentPage - 1) * pageSize + 1;
+    $: offsetEnd = (currentPage) * pageSize;
 
     const handlePageChange = async (event, page) => {
         const eventData = {

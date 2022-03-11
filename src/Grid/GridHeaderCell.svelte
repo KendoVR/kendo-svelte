@@ -7,6 +7,8 @@
     export let colindex;
     export let sortable;
     export let sortDir;
+
+    console.log(sortDir)
 </script>
 
 <th class="k-header k-sorted" aria-colindex="{colindex}" on:click="{ dispatch('click', value) }">
@@ -16,7 +18,11 @@
                 <span class="k-column-title">
                     {value}
                 </span>
-                <span class="k-icon {sortDir === 'acs' ? 'k-i-sort-desc-sm' : 'k-i-sort-asc-sm' }"></span>
+                {#if sortDir === 'asc'}
+                    <span class="k-icon k-i-sort-asc-sm"></span>
+                {:else if sortDir === 'desc'}
+                    <span class="k-icon k-i-sort-desc-sm"></span>
+                {/if}
             </span>
         </span>
     {:else}

@@ -66,7 +66,6 @@
 <main>
 	<h1>Hello {name}!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-	<Pager pageSize=10 total=100 currentPage=1></Pager>
 
 	<Button
 		rounded="{ButtonOptions.Rounded.Small}"
@@ -82,7 +81,7 @@
 		icon="gear">
 	</Button>
 
-	<Grid columns="{gridColumns}" data="{gridItems}" sortable={true}/>
+	<Grid columns="{gridColumns}" data="{gridItems}" sortable={true} pageSize=20/>
 	<Calendar selectedDate={new Date(2022,1,28)} date={new Date()} on:select={(event) => {console.log(event.detail)}} />
 </main>
 
