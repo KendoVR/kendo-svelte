@@ -9,4 +9,5 @@ export * from './Calendar/index';
 export { Popup };
 export * from './Popup/index';
 export * from './TextBox/index';
+export * from './DatePicker/index';
 

@@ -3,6 +3,7 @@
     export let value = undefined;
 </script>
 
-<span class="k-input k-textbox">
+<span class="k-input {$$props.class} k-input-solid k-input-md k-rounded-md">
     <input class="k-input-inner" placeholder={placeholder} bind:value={value} on:change>
+    <slot></slot>
 </span>

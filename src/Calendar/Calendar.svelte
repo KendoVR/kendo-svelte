@@ -7,7 +7,7 @@
     export let selectedDate = undefined;
     export let date = selectedDate || new Date();
     
-    $: _selectedDate = dateMath.createDate(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+    $: _selectedDate = selectedDate ? dateMath.createDate(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate()) : undefined;
     $: currentDate = utils.firstDayInView(date);
     let weekOffset = 0;
 
