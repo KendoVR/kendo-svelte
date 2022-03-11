@@ -7,7 +7,7 @@
     "clean": "rm -rf dist && rm -rf demo/public/build",
     "build": "rollup -c",
     "bootstrap-demo": "cd demo && npm install",
-    "build-demo-pages": "npm run bootstrap-demo && npm run build-demo && rm -rf ./docs && cp -r ./demo/public/ ./docs",
+    "build-demo-pages": "npm ci && npm run bootstrap-demo && npm run build-demo && rm -rf ./docs && cp -r ./demo/public/ ./docs",
     "build-demo": "cd demo && rollup -c",
     "dev": "cd demo && rollup -c -w",
     "start": "sirv demo/public --no-clear",
