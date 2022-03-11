@@ -1,5 +1,5 @@
 <script>
-	import {Grid, Calendar, Pager, Button, ButtonOptions, Popup} from '../../src/index';
+	import {Grid, Calendar, Pager, Button, ButtonOptions, Popup, TextBox} from '../../src/index';
 	export let name;
 
 	let modelFields = [ "title", "state", "number", "body", "created_at", "user", "assignees", "url", "labels" ];
@@ -21,15 +21,18 @@
 
     let popupButton;
     let myPopup;
+    let textBoxValue = "Some text";
 </script>
 
 <main>
 	<h1>Hello {name}!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 
+    <TextBox bind:value={textBoxValue} placeholder="A placeholder" on:change={(ev)=>{console.log("TextBox:", textBoxValue)}}></TextBox>
+
 	<Button
 		rounded="{ButtonOptions.Rounded.Small}"
-		themeColor="{ButtonOptions.ThemeColor.Primary}" on:click={(ev) => {alert("Clicked"); console.log(ev.target)}}>
+		themeColor="{ButtonOptions.ThemeColor.Primary}" on:click={(ev) => {textBoxValue = "No Value"}}>
 		<strong>Text</strong>
 	</Button>
 
