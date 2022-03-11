@@ -17,6 +17,7 @@
     "lint:fix": "npx eslint --fix ./src/**/*.{js,svelte}"
   },
   "devDependencies": {
+    "@progress/kendo-popup-common": "^1.9.1",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "eslint": "^8.10.0",

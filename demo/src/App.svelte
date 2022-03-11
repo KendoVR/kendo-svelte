@@ -1,5 +1,5 @@
 <script>
-	import {Grid, Calendar, Pager, Button, ButtonOptions} from '../../src/index';
+	import {Grid, Calendar, Pager, Button, ButtonOptions, Popup} from '../../src/index';
 	export let name;
 
 	let modelFields = [ "title", "state", "number", "body", "created_at", "user", "assignees", "url", "labels" ];
@@ -18,6 +18,9 @@
         { field: "assignees", title: "Assigned to", width: 80, template: "login" },
         { field: "created_at", title: "Created on", width: 100 }
     ];
+
+    let popupButton;
+    let myPopup;
 </script>
 
 <main>
@@ -35,7 +38,8 @@
 		rounded="{ButtonOptions.Rounded.Full}"
 		shape="{ButtonOptions.Shape.Square}"
 		fillMode="{ButtonOptions.FillMode.Flat}"
-		icon="gear">
+		icon="gear"
+        on:click="{() => myPopup.open()}">
 	</Button>
 
 	<Grid columns={gridColumns}
@@ -46,6 +50,20 @@
             <span slot="state">Unknown state</span>
     </Grid>
 	<Calendar selectedDate={new Date(2022,1,28)} date={new Date()} on:select={(event) => {console.log(event.detail)}} />
+
+    <Button
+        bind:this={popupButton}
+        on:click="{() => myPopup.open()}"
+        rounded="{ButtonOptions.Rounded.Small}"
+        themeColor="{ButtonOptions.ThemeColor.Primary}" >
+        <strong>Popup Toggle</strong>
+    </Button>
+
+    <Popup anchor="{popupButton}" bind:this={myPopup}>
+        <h2>Popup content</h2>
+    </Popup>
+
+
 </main>
 
 <style>
