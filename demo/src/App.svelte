@@ -81,7 +81,7 @@
 		icon="gear">
 	</Button>
 
-	<Grid columns="{gridColumns}" data="{gridItems}" sortable={true} pageSize=20/>
+	<Grid columns="{gridColumns}" data="{gridItems}" sortable={true} pageSize=5/>
 	<Calendar selectedDate={new Date(2022,1,28)} date={new Date()} on:select={(event) => {console.log(event.detail)}} />
 </main>
 

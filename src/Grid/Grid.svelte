@@ -13,8 +13,8 @@
     let skip = 0;
     let take = Number(pageSize);
     let currentPage = 1;
-    let items = data.slice(skip, take + skip);
     let sortExpression = [];
+    let items;
 
     let keys = columns.map((c) => {
         if (typeof c === 'string' || c instanceof String) {
@@ -88,6 +88,8 @@
 
         dataOperation();
     }
+
+    dataOperation();
 </script>
 
 <div class="k-grid">
