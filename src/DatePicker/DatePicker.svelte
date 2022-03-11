@@ -13,7 +13,7 @@
     }
 </script>
 
-<TextBox class="k-datepicker" bind:value={value} bind:this={datepicker} bind:element={datepicker} >
+<TextBox class="k-datepicker" bind:value={value} bind:this={datepicker} bind:element={datepicker} on:input>
     <Button icon="calendar" class="k-input-button k-icon-button" on:click="{() => myPopup.open()}"></Button>
 </TextBox>
 

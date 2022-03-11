@@ -70,7 +70,7 @@
         items = items.slice(skip, take + skip);
     }
 
-    function filter(e) {
+    function filterSring(e) {
         let field = e.detail.key,
             value = e.detail.value,
             filters = filterExpression.filters;
@@ -82,6 +82,37 @@
                 field,
                 value,
                 operator: "contains"
+            });
+        }
+
+        filterExpression.filters = filters;
+
+        dataOperation();
+    }
+
+    function filterDate(e) {
+        let field = e.detail.key,
+            value = e.detail.value,
+            filters = filterExpression.filters,
+            next;
+
+        filters = filters.filter((f) => f.field !== field);
+
+        if (!!value) {
+            next  = new Date(1900 + value.getYear(), value.getMonth(), value.getDate() + 1)
+            console.log(value)
+console.log(next)
+
+            filters.push({
+                field,
+                value,
+                operator: "gt"
+            });
+
+            filters.push({
+                field,
+                next,
+                operator: "lt"
             });
         }
 
@@ -195,7 +226,7 @@
 
                     <tr class="k-filter-row">
                         {#each keys as key, i}
-                            <GridFilterCell {key} {data} on:input="{filter}" />
+                            <GridFilterCell {key} {data} on:filterString="{filterSring}" on:filterDate="{filterDate}" />
                         {/each}
                     </tr>
                 </thead>

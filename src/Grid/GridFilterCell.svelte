@@ -14,18 +14,20 @@
     let firstVal = vals[0] ? vals[0] : null;
 </script>
 
-
 <th>
     {#if Object.prototype.toString.call(firstVal) === "[object Date]"}
         <div class="k-filtercell">
             <div class="k-filtercell-wrapper">
-                <DatePicker/>
+                <DatePicker
+                    bind:value={value}
+                    on:select="{ dispatch('filterDate', { value, key }) }"
+                    on:input="{ dispatch('filterDate', { value: null, key }) }"/>
             </div>
         </div>
     {:else if typeof firstVal === 'string' || firstVal instanceof String}
         <div class="k-filtercell">
             <div class="k-filtercell-wrapper">
-                <TextBox bind:value={value} on:input="{ dispatch('input', { value, key }) }"/>
+                <TextBox bind:value={value} on:input="{ dispatch('filterString', { value, key }) }"/>
             </div>
         </div>
     {/if}
