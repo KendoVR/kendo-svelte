@@ -57,7 +57,7 @@
     let readUrl = "https://api.github.com/repos/telerik/kendo-ui-core/issues?page=1&per_page=100"
 </script>
 
-<main>
+<main class="k-body">
 	<h1>Hello {name}!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 
