@@ -100,8 +100,6 @@
 
         if (!!value) {
             next  = new Date(1900 + value.getYear(), value.getMonth(), value.getDate() + 1)
-            console.log(value)
-console.log(next)
 
             filters.push({
                 field,
@@ -111,7 +109,7 @@ console.log(next)
 
             filters.push({
                 field,
-                next,
+                value: next,
                 operator: "lt"
             });
         }

@@ -15,7 +15,7 @@
               "state": "closed",
               "number": 1523,
               "body": "Currently, when issuing requests to a GraphQL API, the GraphQL string describing the query contains a lot of whitespace. While this makes readability in development mode easier, it is wasteful in production.\r\n\r\nWould it be possible to add a function to this library that strips this whitespace away? Here's some example code that does this:\r\n\r\n```js\r\nlet graphQLQuery = `...` // some GraphQL literal\r\n\r\ngraphQLQuery = graphQLQuery\r\n    .replace(/#.*\\n/g, '')\r\n    .replace(/[\\s|,]*\\n+[\\s|,]*/g, ' ')\r\n    .replace(/:\\s/g, ':')\r\n    .replace(/,\\s/g, ',')\r\n    .replace(/\\)\\s\\{/g, '){')\r\n    .replace(/\\}\\s/g, '}')\r\n    .replace(/\\{\\s/g, '{')\r\n    .replace(/\\s\\}/g, '}')\r\n    .replace(/\\s\\{/g, '{')\r\n    .replace(/\\)\\s/g, ')')\r\n    .replace(/\\(\\s/g, '(')\r\n    .replace(/\\s\\)/g, ')')\r\n    .replace(/\\s\\(/g, '(')\r\n    .replace(/=\\s/g, '=')\r\n    .replace(/\\s=/g, '=')\r\n    .replace(/@\\s/g, '@')\r\n    .replace(/\\s@/g, '@')\r\n    .replace(/\\s\\$/g, '$')\r\n    .replace(/\\s\\./g, '.')\r\n    .trim()\r\n```\r\n\r\nThis code turns a GraphQL query such as this one:\r\n\r\n```gql\r\nquery SomeQuery($foo: String!, $bar: String) {\r\n  someField(foo: $foo, bar: $bar) {\r\n    a\r\n    b {\r\n      c\r\n      d\r\n    }\r\n  }\r\n} \r\n```\r\n\r\ninto:\r\n\r\n```gql\r\nquery SomeQuery($foo:String!$bar:String){someField(foo:$foo bar:$bar){a b{c d}}}\r\n```\r\n\r\nPreferably this would happen at compile time for a production build, so the GraphQL literals in the source code would be minified in the output bundle and thus sent in minified form to the GraphQL API.\r\n\r\nProposed name for this function: `condense`.",
-              "created_at": "2018-09-14T09:21:41Z",
+              "created_at": "2022-03-14T09:21:41Z",
               "assignees": [],
               "url": "https://github.com/graphql/graphql-js/issues/1523"
           },
@@ -24,7 +24,7 @@
               "state": "closed",
               "number": 1524,
               "body": "Hello.\r\n\r\nAfter upgrading package from `\"graphql\": \"^0.13.2\"` to `\"graphql\": \"^14.0.2\",`,\r\nWhen I'm trying to get any query, I receive error:\r\n`Expected [object GraphQLSchema] to be a GraphQL schema.`\r\n\r\n<img width=\"1440\" alt=\"screen shot 2018-09-14 at 7 37 50 pm\" src=\"https://user-images.githubusercontent.com/12682937/45563339-b8fb2d80-b855-11e8-8462-f7a2cba93802.png\">\r\n\r\nMy package.json:\r\n[package.txt](https://github.com/graphql/graphql-js/files/2384162/package.txt)\r\n\r\nApp structure:\r\n<img width=\"1440\" alt=\"screen shot 2018-09-14 at 7 39 38 pm\" src=\"https://user-images.githubusercontent.com/12682937/45563435-024b7d00-b856-11e8-8d42-3ba1266437ad.png\">\r\n<img width=\"1440\" alt=\"screen shot 2018-09-14 at 7 39 47 pm\" src=\"https://user-images.githubusercontent.com/12682937/45563451-0d9ea880-b856-11e8-8c4c-48707b980dca.png\">\r\n\r\nCan this be issue in a package or it's some migration problem ?\r\n(I didn't updated project after it)\r\n\r\nThank you.\r\n",
-              "created_at": "2018-09-14T16:41:40Z",
+              "created_at": "2022-03-14T16:41:40Z",
               "assignees": [],
               "url": "https://github.com/graphql/graphql-js/issues/1524"
           },
@@ -33,7 +33,7 @@
               "state": "open",
               "number": 1527,
               "body": "I'm currently adding extra properties to some graphql object field definitions, like the following:\r\n\r\n```js\r\nconst MutationType = new GraphQLObjectType({\r\n  name: 'Mutation',\r\n  fields: () => ({\r\n    AddSomething: {\r\n      // ... normal field properties\r\n      somethingElse: {},\r\n    }\r\n  }),\r\n})\r\n```\r\n\r\nAnd then using them later on via the `info` argument inside some middlewares (using [`graphql-middleware`](https://github.com/prisma/graphql-middleware/)):\r\n```js\r\nconst mutationField = info.schema.getMutationType().getFields()[info.fieldName];\r\nconsole.log(mutationField.somethingElse);\r\n```\r\n\r\nFor more details, see the following medium post: [graphql mutation arguments validation using yup](https://itnext.io/graphql-mutation-arguments-validation-with-yup-using-graphql-middleware-645822fb748)\r\n\r\n---\r\n\r\nThe thing is, this is relying on internal behavior.\r\nThe following code spreads all properties given to the field:\r\nhttps://github.com/graphql/graphql-js/blob/81719749e01f030cfb3a01a97e7e4bfc534bb08f/src/type/definition.js#L720-L724\r\n\r\nIs that something expected to not change? If yes, then no need for any other extra property or for this issue. 😄 \r\n\r\nBut if this is something that can change in future versions, I would love the possibility of having an extra field for that extra metadata.\r\n\r\nI'm available to work on adding this, if it's approved.",
-              "created_at": "2018-09-20T13:52:40Z",
+              "created_at": "2022-03-20T13:52:40Z",
               "assignees": [
                 {
                 "login": "Ivan Goncharov",

@@ -97,7 +97,7 @@
     <div
         use:portal={'body'}
         bind:this={element} class="k-animation-container"
-        style="position: {positionMode}; z-index: 100;">
+        style="position: {positionMode}; z-index: 3000;">
         <div class="k-popup k-popup-content">
             <slot></slot>
         </div>
