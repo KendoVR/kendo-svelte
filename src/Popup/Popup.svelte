@@ -63,7 +63,10 @@
             element: popupElm,
             elementAlign: popupAlign,
             currentLocation: alignOffset,
-            collisions: false
+            collisions: {
+                horizontal: "fit",
+                vertical: "flip"
+            }
         });
 
         popupElm.style.top = position.offset.top + 'px';

@@ -6,13 +6,17 @@
 
     export let value = undefined;
     let myPopup;
-    let textbox;
+    let datepicker;
+
+    export function getElm () {
+        return element;
+    }
 </script>
 
-<TextBox class="k-datepicker" bind:value={value} bind:this={textbox} >
+<TextBox class="k-datepicker" bind:value={value} bind:this={datepicker} bind:element={datepicker} >
     <Button icon="calendar" class="k-input-button k-icon-button" on:click="{() => myPopup.open()}"></Button>
 </TextBox>
 
-<Popup anchor="{textbox}" bind:this={myPopup}>
+<Popup anchor="{datepicker}" bind:this={myPopup}>
     <Calendar selectedDate={value} date={new Date()} on:select={(ev) => {value = ev.detail; myPopup.close();}} on:select></Calendar>
 </Popup>
