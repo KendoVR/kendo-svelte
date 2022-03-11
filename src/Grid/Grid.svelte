@@ -3,6 +3,7 @@
     import Loader from "../Loader/Loader.svelte";
     import GridHeaderRow from "./GridHeaderRow.svelte";
     import GridCol from "./GridCol.svelte";
+    import GridFilterCell from "./GridFilterCell.svelte";
 
     import { orderBy } from '@progress/kendo-data-query';
 
@@ -54,7 +55,7 @@
     function dataOperation() {
         let sortLength = sortExpression.length;
 
-        items = itemsByModelFields();
+        items = data;
 
         if (sortLength) {
             sortExpression.forEach((exp) => {
@@ -63,6 +64,10 @@
         }
 
         items = items.slice(skip, take + skip);
+    }
+
+    function filter(e) {
+
     }
 
     function sort(e) {
@@ -123,23 +128,26 @@
             .then((res) => {
                 data = res;
                 populateColumns();
+                itemsByModelFields();
                 dataOperation();
             });
     }
 
     function itemsByModelFields() {
         if (modelFields.length) {
-            return data.map((issue) => {
+            data = data.map((el) => {
                 let item = {};
 
                 modelFields.forEach((col) => {
-                    item[col] = issue[col];
+                    if ((typeof el[col] === 'string' || el[col] instanceof String) && Object.prototype.toString.call(new Date(el[col])) === "[object Date]" && !isNaN(new Date(el[col]))) {
+                        item[col] = new Date(el[col]);
+                    } else {
+                        item[col] = el[col];
+                    }
                 });
 
                 return item;
             });
-        } else {
-            return data;
         }
     }
 
@@ -147,8 +155,14 @@
         read();
     } else {
         populateColumns();
+        itemsByModelFields();
         dataOperation();
     }
+
+    console.log(columns)
+    console.log(data)
+    console.log(items)
+    console.log(keys)
 </script>
 
 <div class="k-grid">
@@ -163,6 +177,12 @@
                 </colgroup>
                 <thead>
                     <GridHeaderRow {titles} {keys} on:click="{sort}" {columnsSort} {sortable} />
+
+                    <tr class="k-filter-row">
+                        {#each keys as key, i}
+                            <GridFilterCell {key} {data} on:filter="{filter}" />
+                        {/each}
+                    </tr>
                 </thead>
             </table>
         </div>
