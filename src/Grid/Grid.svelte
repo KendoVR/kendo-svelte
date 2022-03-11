@@ -197,5 +197,5 @@
         </div>
     </div>
 
-    <Pager pageSize total={data.length} currentPage on:pageChange={pageChange} />
+    <Pager {pageSize} total={data.length} {currentPage} on:pageChange={pageChange} />
 </div>
