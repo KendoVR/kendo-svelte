@@ -2,64 +2,21 @@
 	import {Grid, Calendar, Pager, Button, ButtonOptions} from '../../src/index';
 	export let name;
 
-	let gridColumns = ["ProductID", "ProductName", "SupplierCountry"];
-	let gridItems = [
-        { ProductID: 3, ProductName: "Aniseed Syrup", SupplierCountry: "UK" },
+	let modelFields = [ "title", "state", "number", "body", "created_at", "user", "assignees", "url", "labels" ];
+    let gridColumns = [
+        { field: "number", title: "ID", width: 50 },
         {
-            ProductID: 4,
-            ProductName: "Chef Anton\u0027s Cajun Seasoning",
-            SupplierCountry: "USA",
+            field: "state",
+            title: "State",
+            width: 50,
+            template: {
+                open: `<svg style="fill:green;paddingLeft: 2" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fillRule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg>`,
+                closed: `<svg style="fill:red" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fillRule="evenodd" d="M7 10h2v2H7v-2zm2-6H7v5h2V4zm1.5 1.5l-1 1L12 9l4-4.5-1-1L12 7l-1.5-1.5zM8 13.7A5.71 5.71 0 0 1 2.3 8c0-3.14 2.56-5.7 5.7-5.7 1.83 0 3.45.88 4.5 2.2l.92-.92A6.947 6.947 0 0 0 8 1C4.14 1 1 4.14 1 8s3.14 7 7 7 7-3.14 7-7l-1.52 1.52c-.66 2.41-2.86 4.19-5.48 4.19v-.01z"></path></svg>`
+            }
         },
-        {
-            ProductID: 5,
-            ProductName: "Chef Anton\u0027s Gumbo Mix",
-            SupplierCountry: "USA",
-        },
-        {
-            ProductID: 6,
-            ProductName: "Grandma\u0027s Boysenberry Spread",
-            SupplierCountry: "USA",
-        },
-        {
-            ProductID: 8,
-            ProductName: "Northwoods Cranberry Sauce",
-            SupplierCountry: "USA",
-        },
-        {
-            ProductID: 15,
-            ProductName: "Genen Shouyu",
-            SupplierCountry: "Japan",
-        },
-        {
-            ProductID: 44,
-            ProductName: "Gula Malacca",
-            SupplierCountry: "Singapore",
-        },
-        {
-            ProductID: 61,
-            ProductName: "Sirop d\u0027érable",
-            SupplierCountry: "Canada",
-        },
-        {
-            ProductID: 63,
-            ProductName: "Vegie-spread",
-            SupplierCountry: "Australia",
-        },
-        {
-            ProductID: 65,
-            ProductName: "Louisiana Fiery Hot Pepper Sauce",
-            SupplierCountry: "USA",
-        },
-        {
-            ProductID: 66,
-            ProductName: "Louisiana Hot Spiced Okra",
-            SupplierCountry: "USA",
-        },
-        {
-            ProductID: 77,
-            ProductName: "Original Frankfurter grüne Soße",
-            SupplierCountry: "Germany",
-        },
+        { field: "title", title: "Issue", width: 200 },
+        { field: "assignees", title: "Assigned to", width: 80, template: "login" },
+        { field: "created_at", title: "Created on", width: 100 }
     ];
 </script>
 
@@ -81,7 +38,13 @@
 		icon="gear">
 	</Button>
 
-	<Grid columns="{gridColumns}" data="{gridItems}" sortable={true} pageSize=5/>
+	<Grid columns={gridColumns}
+        modelFields={modelFields}
+        sortable={true}
+        pageSize=20
+        readUrl="https://api.github.com/repos/telerik/kendo-ui-core/issues?page=1&per_page=100">
+            <span slot="state">Unknown state</span>
+    </Grid>
 	<Calendar selectedDate={new Date(2022,1,28)} date={new Date()} on:select={(event) => {console.log(event.detail)}} />
 </main>
 
