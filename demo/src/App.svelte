@@ -111,9 +111,11 @@
         <strong>Popup Toggle</strong>
     </Button>
 
-    <Popup anchor="{popupButton}" bind:this={myPopup}>
-        <h2>Popup content</h2>
-    </Popup>
+    <portal>
+        <Popup anchor="{popupButton}" bind:this={myPopup}>
+            <h2>Popup content</h2>
+        </Popup>
+    </portal>
 
     <DatePicker on:select={(ev) => {console.log(ev.detail)}} bind:value={dateValue}></DatePicker>
     {dateValue}

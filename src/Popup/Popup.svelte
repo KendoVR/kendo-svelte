@@ -3,6 +3,7 @@
 
     import { onMount } from 'svelte';
     import { tick } from 'svelte';
+    import { portal } from "./actions.js";
 
     import { createEventDispatcher } from "svelte";
     const dispatch = createEventDispatcher();
@@ -91,6 +92,7 @@
 
 {#if show}
     <div
+        use:portal={'body'}
         bind:this={element} class="k-animation-container"
         style="position: {positionMode}; z-index: 100;">
         <div class="k-popup k-popup-content">
