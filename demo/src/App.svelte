@@ -1,5 +1,5 @@
 <script>
-    import {Grid, Calendar, Pager, Button, ButtonOptions, Popup, TextBox, DatePicker} from '../../src/index';
+    import {Grid} from '../../src/index';
 
     let modelFields = [ "title", "state", "number", "body", "created_at", "user", "assignees", "url", "labels" ];
     let gridColumns = [
@@ -44,7 +44,7 @@
           }
     ]
 
-    let readUrl = "https://api.github.com/repos/telerik/kendo-ui-core/issues?page=1&per_page=100"
+    let readUrl = "https://api.github.com/repos/telerik/kendo-ui-core/issues?page=1&per_page=100&state=all"
 </script>
 
 <main class="k-body">
@@ -54,7 +54,7 @@
         modelFields={modelFields}
         sortable={true}
         pageSize=20
-        data="{gridData}"
+        {readUrl}
         >
             <svelte:fragment slot="cell" let:value let:key>
                 {#if key === "state"}
