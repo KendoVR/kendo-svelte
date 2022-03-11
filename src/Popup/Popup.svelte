@@ -44,6 +44,10 @@
         const anchorElm = anchor.getElm();
         const popupElm = getElm();
 
+        if (!anchorElm || !popupElm) {
+            return;
+        }
+
         const alignOffset = popupCommon.alignElement({
             anchor: anchorElm,
             anchorAlign: anchorAlign,
