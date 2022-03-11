@@ -5,7 +5,7 @@
     import GridCol from "./GridCol.svelte";
     import GridFilterCell from "./GridFilterCell.svelte";
 
-    import { orderBy } from '@progress/kendo-data-query';
+    import { orderBy, filterBy  } from '@progress/kendo-data-query';
 
     export let data = [];
     export let columns = [];
@@ -22,6 +22,10 @@
     let keys = [];
     let titles = [];
     let items = [];
+    let filterExpression =  {
+        logic: "and",
+        filters: []
+    };
 
     function populateColumns() {
         if (columns.length === 0 && data.length !== 0) {
@@ -55,7 +59,7 @@
     function dataOperation() {
         let sortLength = sortExpression.length;
 
-        items = data;
+        items = filterBy(data, filterExpression);
 
         if (sortLength) {
             sortExpression.forEach((exp) => {
@@ -67,7 +71,23 @@
     }
 
     function filter(e) {
+        let field = e.detail.key,
+            value = e.detail.value,
+            filters = filterExpression.filters;
 
+        filters = filters.filter((f) => f.field !== field);
+
+        if (!!value) {
+            filters.push({
+                field,
+                value,
+                operator: "contains"
+            });
+        }
+
+        filterExpression.filters = filters;
+
+        dataOperation();
     }
 
     function sort(e) {
@@ -158,11 +178,6 @@
         itemsByModelFields();
         dataOperation();
     }
-
-    console.log(columns)
-    console.log(data)
-    console.log(items)
-    console.log(keys)
 </script>
 
 <div class="k-grid">
@@ -180,7 +195,7 @@
 
                     <tr class="k-filter-row">
                         {#each keys as key, i}
-                            <GridFilterCell {key} {data} on:filter="{filter}" />
+                            <GridFilterCell {key} {data} on:input="{filter}" />
                         {/each}
                     </tr>
                 </thead>

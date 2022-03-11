@@ -5,11 +5,7 @@
 	let modelFields = [ "title", "state", "number", "body", "created_at", "user", "assignees", "url", "labels" ];
     let gridColumns = [
         { field: "number", title: "ID", width: 50 },
-        {
-            field: "state",
-            title: "State",
-            width: 50
-        },
+        { field: "state", title: "State", width: 50 },
         { field: "title", title: "Issue", width: 200 },
         { field: "assignees", title: "Assigned to", width: 100 },
         { field: "created_at", title: "Created on", width: 70 }
@@ -31,7 +27,7 @@
           },
           {
               "title": "After upgrading package got \"Expected ... to be a GraphQL schema\"",
-              "state": "slosed",
+              "state": "closed",
               "number": 1524,
               "body": "Hello.\r\n\r\nAfter upgrading package from `\"graphql\": \"^0.13.2\"` to `\"graphql\": \"^14.0.2\",`,\r\nWhen I'm trying to get any query, I receive error:\r\n`Expected [object GraphQLSchema] to be a GraphQL schema.`\r\n\r\n<img width=\"1440\" alt=\"screen shot 2018-09-14 at 7 37 50 pm\" src=\"https://user-images.githubusercontent.com/12682937/45563339-b8fb2d80-b855-11e8-8462-f7a2cba93802.png\">\r\n\r\nMy package.json:\r\n[package.txt](https://github.com/graphql/graphql-js/files/2384162/package.txt)\r\n\r\nApp structure:\r\n<img width=\"1440\" alt=\"screen shot 2018-09-14 at 7 39 38 pm\" src=\"https://user-images.githubusercontent.com/12682937/45563435-024b7d00-b856-11e8-8d42-3ba1266437ad.png\">\r\n<img width=\"1440\" alt=\"screen shot 2018-09-14 at 7 39 47 pm\" src=\"https://user-images.githubusercontent.com/12682937/45563451-0d9ea880-b856-11e8-8c4c-48707b980dca.png\">\r\n\r\nCan this be issue in a package or it's some migration problem ?\r\n(I didn't updated project after it)\r\n\r\nThank you.\r\n",
               "created_at": "2018-09-14T16:41:40Z",
