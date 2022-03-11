@@ -2,7 +2,6 @@
     export let value;
     export let colindex;
     export let column;
-    console.log(value)
 </script>
 
 <td aria-colindex="{colindex}">

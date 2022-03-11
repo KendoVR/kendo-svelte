@@ -6,7 +6,7 @@
     export let pageSize;
     export let currentPage = 1;
 
-    let pageCount = Math.round((total / pageSize) + 1);
+    $: pageCount = Math.ceil(total / pageSize);
 
     $: offsetStart = (currentPage - 1) * pageSize + 1;
     $: offsetEnd = (currentPage) * pageSize;

@@ -1,7 +1,6 @@
 <script>
     import Pager from "../Pager/Pager.svelte";
     import Loader from "../Loader/Loader.svelte";
-    import GridRow from "./GridRow.svelte";
     import GridHeaderRow from "./GridHeaderRow.svelte";
     import GridCol from "./GridCol.svelte";
 
@@ -188,8 +187,15 @@
                 <tbody>
                     {#if !!items.length}
                         {#each items as item, i}
-                            <GridRow slots="{$$slots.state}" {item} rowindex="{i}" {keys} {columns}>
-                            </GridRow>
+                            <tr class="{i % 2 === 0 ? 'k-master-row' : 'k-master-row k-alt'}" aria-rowindex="{i}">
+                                {#each keys as key, j}
+                                    <td aria-colindex="{j}">
+                                        <slot name="cell" value="{item[key]}" key="{key}" colindex="{j}" >
+                                            {item[key]}
+                                        </slot>
+                                    </td>
+                                {/each}
+                            </tr>
                         {/each}
                     {/if}
                 </tbody>
