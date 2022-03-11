@@ -1,8 +1,7 @@
 <script>
-	import {Grid, Calendar, Pager, Button, ButtonOptions, Popup, TextBox, DatePicker} from '../../src/index';
-	export let name;
+    import {Grid, Calendar, Pager, Button, ButtonOptions, Popup, TextBox, DatePicker} from '../../src/index';
 
-	let modelFields = [ "title", "state", "number", "body", "created_at", "user", "assignees", "url", "labels" ];
+    let modelFields = [ "title", "state", "number", "body", "created_at", "user", "assignees", "url", "labels" ];
     let gridColumns = [
         { field: "number", title: "ID", width: 50 },
         { field: "state", title: "State", width: 50 },
@@ -10,11 +9,6 @@
         { field: "assignees", title: "Assigned to", width: 100 },
         { field: "created_at", title: "Created on", width: 70 }
     ];
-
-    let popupButton;
-    let myPopup;
-    let textBoxValue = "Some text";
-    let dateValue = new Date();
 
     let gridData = [{
               "title": "Feature request: strip whitespace from GraphQL queries / fragments / mutations / subscriptions",
@@ -54,29 +48,9 @@
 </script>
 
 <main class="k-body">
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+    <h1>Kendo UI for Svelte!</h1>
 
-
-
-    <TextBox bind:value={textBoxValue} placeholder="A placeholder" on:change={(ev)=>{console.log("TextBox:", textBoxValue)}}></TextBox>
-
-	<Button
-		rounded="{ButtonOptions.Rounded.Small}"
-		themeColor="{ButtonOptions.ThemeColor.Primary}" on:click={(ev) => {textBoxValue = "No Value"}}>
-		<strong>Text</strong>
-	</Button>
-
-	<Button
-		size="{ButtonOptions.Size.Large}"
-		rounded="{ButtonOptions.Rounded.Full}"
-		shape="{ButtonOptions.Shape.Square}"
-		fillMode="{ButtonOptions.FillMode.Flat}"
-		icon="gear"
-        on:click="{() => myPopup.open()}">
-	</Button>
-
-	<Grid columns={gridColumns}
+    <Grid columns={gridColumns}
         modelFields={modelFields}
         sortable={true}
         pageSize=20
@@ -101,42 +75,26 @@
                 {/if}
             </svelte:fragment>
     </Grid>
-	<Calendar selectedDate={new Date(2022,1,28)} date={new Date()} on:select={(event) => {console.log(event.detail)}} />
-
-    <Button
-        bind:this={popupButton}
-        on:click="{() => myPopup.open()}"
-        rounded="{ButtonOptions.Rounded.Small}"
-        themeColor="{ButtonOptions.ThemeColor.Primary}" >
-        <strong>Popup Toggle</strong>
-    </Button>
-
-    <Popup anchor="{popupButton}" bind:this={myPopup}>
-        <h2>Popup content</h2>
-    </Popup>
-
-    <DatePicker on:select={(ev) => {console.log(ev.detail)}} bind:value={dateValue}></DatePicker>
-    {dateValue}
 </main>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
+    main {
+        text-align: center;
+        padding: 1em;
+        max-width: 240px;
+        margin: 0 auto;
+    }
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
+    h1 {
+        color: #ff3e00;
+        text-transform: uppercase;
+        font-size: 4em;
+        font-weight: 100;
+    }
 
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
+    @media (min-width: 640px) {
+        main {
+            max-width: none;
+        }
+    }
 </style>
