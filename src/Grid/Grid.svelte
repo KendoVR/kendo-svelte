@@ -7,6 +7,8 @@
 
     import { orderBy, filterBy  } from '@progress/kendo-data-query';
 
+    import { issues } from "./issues.js";
+
     export let data = [];
     export let columns = [];
     export let sortable = false;
@@ -163,22 +165,31 @@
         dataOperation();
     }
 
+    function remoteToLocal(d) {
+        data = d;
+        populateColumns();
+        itemsByModelFields();
+        dataOperation();
+    }
+
     function read() {
         let myRequest = new Request(readUrl);
 
         fetch(myRequest)
             .then((response) => {
                 if (!response.ok) {
+                    remoteToLocal(issues);
+
                     throw new Error(`HTTP error! Status: ${ response.status }`);
                 }
 
                 return response.json();
             })
-            .then((res) => {
-                data = res;
-                populateColumns();
-                itemsByModelFields();
-                dataOperation();
+            .then(remoteToLocal)
+            .catch((err) => {
+                remoteToLocal(issues);
+
+                throw new Error(`HTTP error! Error: ${ err.message }`);
             });
     }
 
@@ -188,8 +199,8 @@
                 let item = {};
 
                 modelFields.forEach((col) => {
-                    if ((typeof el[col] === 'string' || el[col] instanceof String) && Object.prototype.toString.call(new Date(el[col])) === "[object Date]" && !isNaN(new Date(el[col]))) {
-                        item[col] = new Date(el[col]);
+                    if (col.field && col.type === "date") {
+                        item[col.field] = new Date(el[col.field]);
                     } else {
                         item[col] = el[col];
                     }
