@@ -5,7 +5,7 @@
     import GridCol from "./GridCol.svelte";
     import GridFilterCell from "./GridFilterCell.svelte";
 
-    import { orderBy, filterBy  } from '@progress/kendo-data-query';
+    import { orderBy, filterBy } from "@progress/kendo-data-query";
 
     import { issues } from "./issues.js";
 
@@ -24,9 +24,9 @@
     let keys = [];
     let titles = [];
     let items = [];
-    let filterExpression =  {
+    let filterExpression = {
         logic: "and",
-        filters: []
+        filters: [],
     };
 
     function populateColumns() {
@@ -39,7 +39,7 @@
         }
 
         columns.map((c) => {
-            if (typeof c === 'string' || c instanceof String) {
+            if (typeof c === "string" || c instanceof String) {
                 keys.push(c);
                 titles.push(c);
             } else {
@@ -83,7 +83,7 @@
             filters.push({
                 field,
                 value,
-                operator: "contains"
+                operator: "contains",
             });
         }
 
@@ -101,18 +101,22 @@
         filters = filters.filter((f) => f.field !== field);
 
         if (!!value) {
-            next  = new Date(1900 + value.getYear(), value.getMonth(), value.getDate() + 1)
+            next = new Date(
+                1900 + value.getYear(),
+                value.getMonth(),
+                value.getDate() + 1
+            );
 
             filters.push({
                 field,
                 value,
-                operator: "gt"
+                operator: "gt",
             });
 
             filters.push({
                 field,
                 value: next,
-                operator: "lt"
+                operator: "lt",
             });
         }
 
@@ -134,23 +138,24 @@
         }
 
         if (!columnsSort[field]) {
-            sortExpression = sortExpression.filter((exp) => exp.field !== field);
+            sortExpression = sortExpression.filter(
+                (exp) => exp.field !== field
+            );
         } else {
             sortExpression = sortExpression.map((exp) => {
                 if (exp.field === field) {
                     hasField = true;
 
-                    return {...exp, dir: columnsSort[field]};
+                    return { ...exp, dir: columnsSort[field] };
                 }
 
                 return exp;
             });
 
-
             if (!hasField) {
                 sortExpression.push({
                     field: field,
-                    dir: columnsSort[field]
+                    dir: columnsSort[field],
                 });
             }
         }
@@ -180,7 +185,7 @@
                 if (!response.ok) {
                     remoteToLocal(issues);
 
-                    throw new Error(`HTTP error! Status: ${ response.status }`);
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
 
                 return response.json();
@@ -189,7 +194,7 @@
             .catch((err) => {
                 remoteToLocal(issues);
 
-                throw new Error(`HTTP error! Error: ${ err.message }`);
+                throw new Error(`HTTP error! Error: ${err.message}`);
             });
     }
 
@@ -221,7 +226,6 @@
 </script>
 
 <div class="k-grid">
-
     <div class="k-grid-header">
         <div class="k-grid-header-wrap">
             <table role="grid">
@@ -231,11 +235,22 @@
                     {/each}
                 </colgroup>
                 <thead>
-                    <GridHeaderRow {titles} {keys} on:click="{sort}" {columnsSort} {sortable} />
+                    <GridHeaderRow
+                        titles="{titles}"
+                        keys="{keys}"
+                        on:click="{sort}"
+                        columnsSort="{columnsSort}"
+                        sortable="{sortable}"
+                    />
 
                     <tr class="k-filter-row">
                         {#each keys as key, i}
-                            <GridFilterCell {key} {data} on:filterString="{filterSring}" on:filterDate="{filterDate}" />
+                            <GridFilterCell
+                                key="{key}"
+                                data="{data}"
+                                on:filterString="{filterSring}"
+                                on:filterDate="{filterDate}"
+                            />
                         {/each}
                     </tr>
                 </thead>
@@ -245,7 +260,7 @@
 
     <div class="k-grid-container" style="height:500px">
         {#if !items.length}
-            <Loader/>
+            <Loader />
         {/if}
         <div class="k-grid-content">
             <table
@@ -262,10 +277,20 @@
                 <tbody>
                     {#if !!items.length}
                         {#each items as item, i}
-                            <tr class="{i % 2 === 0 ? 'k-master-row' : 'k-master-row k-alt'}" aria-rowindex="{i}">
+                            <tr
+                                class="{i % 2 === 0
+                                    ? 'k-master-row'
+                                    : 'k-master-row k-alt'}"
+                                aria-rowindex="{i}"
+                            >
                                 {#each keys as key, j}
                                     <td aria-colindex="{j}">
-                                        <slot name="cell" value="{item[key]}" key="{key}" colindex="{j}" >
+                                        <slot
+                                            name="cell"
+                                            value="{item[key]}"
+                                            key="{key}"
+                                            colindex="{j}"
+                                        >
                                             {item[key]}
                                         </slot>
                                     </td>
@@ -278,5 +303,10 @@
         </div>
     </div>
 
-    <Pager {pageSize} total={data.length} {currentPage} on:pageChange={pageChange} />
+    <Pager
+        pageSize="{pageSize}"
+        total="{data.length}"
+        currentPage="{currentPage}"
+        on:pageChange="{pageChange}"
+    />
 </div>

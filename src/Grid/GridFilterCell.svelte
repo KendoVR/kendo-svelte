@@ -2,7 +2,7 @@
     import DatePicker from "../DatePicker/DatePicker.svelte";
     import TextBox from "../TextBox/TextBox.svelte";
 
-    import { createEventDispatcher } from 'svelte';
+    import { createEventDispatcher } from "svelte";
 
     const dispatch = createEventDispatcher();
 
@@ -19,15 +19,19 @@
         <div class="k-filtercell">
             <div class="k-filtercell-wrapper">
                 <DatePicker
-                    bind:value={value}
-                    on:select="{ dispatch('filterDate', { value, key }) }"
-                    on:input="{ dispatch('filterDate', { value: null, key }) }"/>
+                    bind:value
+                    on:select="{dispatch('filterDate', { value, key })}"
+                    on:input="{dispatch('filterDate', { value: null, key })}"
+                />
             </div>
         </div>
-    {:else if typeof firstVal === 'string' || firstVal instanceof String}
+    {:else if typeof firstVal === "string" || firstVal instanceof String}
         <div class="k-filtercell">
             <div class="k-filtercell-wrapper">
-                <TextBox bind:value={value} on:input="{ dispatch('filterString', { value, key }) }"/>
+                <TextBox
+                    bind:value
+                    on:input="{dispatch('filterString', { value, key })}"
+                />
             </div>
         </div>
     {/if}

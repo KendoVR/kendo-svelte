@@ -1,3 +1,3 @@
-import TextBox from './TextBox.svelte';
+import TextBox from "./TextBox.svelte";
 
 export { TextBox };

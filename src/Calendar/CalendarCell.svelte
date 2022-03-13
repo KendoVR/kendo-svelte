@@ -1,9 +1,11 @@
 <script>
-import { createEventDispatcher } from 'svelte';
+    import { createEventDispatcher } from "svelte";
 
-const dispatch = createEventDispatcher();
+    const dispatch = createEventDispatcher();
 
-export let date = undefined;
+    export let date = undefined;
 </script>
 
-<span class="k-link" on:click="{() => dispatch('select', date)}">{date.getDate()}</span>
+<span class="k-link" on:click="{() => dispatch('select', date)}"
+    >{date.getDate()}</span
+>

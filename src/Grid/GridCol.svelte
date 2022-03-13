@@ -3,7 +3,7 @@
 </script>
 
 {#if !!width}
-    <col style="width:{width}px">
+    <col style="width:{width}px" />
 {:else}
-    <col class="k-group-col">
+    <col class="k-group-col" />
 {/if}

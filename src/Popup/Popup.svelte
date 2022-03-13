@@ -1,8 +1,8 @@
 <script>
-    import * as popupCommon from '@progress/kendo-popup-common';
+    import * as popupCommon from "@progress/kendo-popup-common";
 
-    import { onMount } from 'svelte';
-    import { tick } from 'svelte';
+    import { onMount } from "svelte";
+    import { tick } from "svelte";
     import { portal } from "./actions.js";
 
     import { createEventDispatcher } from "svelte";
@@ -13,12 +13,12 @@
     export let positionMode = "absolute";
     export let anchor;
     export let anchorAlign = {
-        horizontal: 'left',
-        vertical: 'bottom'
+        horizontal: "left",
+        vertical: "bottom",
     };
     export let popupAlign = {
-        horizontal: 'left',
-        vertical: 'top'
+        horizontal: "left",
+        vertical: "top",
     };
 
     export async function open() {
@@ -37,7 +37,7 @@
         dispatch("close");
     }
 
-    export function getElm () {
+    export function getElm() {
         return element;
     }
 
@@ -54,7 +54,7 @@
             anchorAlign: anchorAlign,
             element: popupElm,
             elementAlign: popupAlign,
-            positionMode: positionMode
+            positionMode: positionMode,
         });
 
         const position = popupCommon.positionElement({
@@ -65,12 +65,12 @@
             currentLocation: alignOffset,
             collisions: {
                 horizontal: "fit",
-                vertical: "flip"
-            }
+                vertical: "flip",
+            },
         });
 
-        popupElm.style.top = position.offset.top + 'px';
-        popupElm.style.left = position.offset.left + 'px';
+        popupElm.style.top = position.offset.top + "px";
+        popupElm.style.left = position.offset.left + "px";
     }
 
     const debounce = (func, delay) => {
@@ -85,21 +85,23 @@
     };
 
     onMount(() => {
-        window.addEventListener('resize', debounce(position, 1000 / 60));
+        window.addEventListener("resize", debounce(position, 1000 / 60));
 
         return () => {
-            window.removeEventListener('resize', debounce(position, 1000 / 60));
-        }
+            window.removeEventListener("resize", debounce(position, 1000 / 60));
+        };
     });
 </script>
 
 {#if show}
     <div
-        use:portal={'body'}
-        bind:this={element} class="k-animation-container"
-        style="position: {positionMode}; z-index: 3000;">
+        use:portal="{'body'}"
+        bind:this="{element}"
+        class="k-animation-container"
+        style="position: {positionMode}; z-index: 3000;"
+    >
         <div class="k-popup k-popup-content">
-            <slot></slot>
+            <slot />
         </div>
     </div>
 {/if}

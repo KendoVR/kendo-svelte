@@ -5,6 +5,6 @@ export function portal(node, name) {
     return {
         destroy() {
             node.remove();
-        }
-    }
+        },
+    };
 }
